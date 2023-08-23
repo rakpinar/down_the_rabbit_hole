@@ -72,7 +72,6 @@ int main(int argc, **argv)
 		game->chr = ft_calloc(1, sizeof(t_chr));
 		game-> mlx_init;
 		start_game(&game)
-		ft_error("Missing Argument or Wrong File Extension");
 	
 	return(0);
 }
