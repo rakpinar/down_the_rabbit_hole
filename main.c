@@ -70,7 +70,7 @@ int main(int argc, **argv)
 		game = ft_calloc(1, sizeof(t_game));
 		game->map = ft_calloc(1, sizeof(t_map));
 		game->chr = ft_calloc(1, sizeof(t_chr));
-		game-> mlx_init;
+		game->mlx = mlx_init();
 		start_game(&game)
 	
 	return(0);
