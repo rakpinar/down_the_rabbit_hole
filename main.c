@@ -64,17 +64,15 @@ int main(int argc, **argv)
 {
 	t_game *game;
 
-	if(argc == 2 && !ft_strncmp(&[ft_strlen(argv[1]) - 4], ".ber", 5))
-	{
+	if(argc == 2 && !ft_strncmp(&argv[1][ft_strlen(argv[1]) - 4], ".ber", 5))
+		ft_error("Missing Argument or Wrong File Extension");
+	
 		game = ft_calloc(1, sizeof(t_game));
 		game->map = ft_calloc(1, sizeof(t_map));
 		game->chr = ft_calloc(1, sizeof(t_chr));
 		game-> mlx_init;
 		start_game(&game)
-
-	}	
-
-	else
 		ft_error("Missing Argument or Wrong File Extension");
+	
 	return(0);
 }
