@@ -5,33 +5,64 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rakpinar <rakpinar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/22 16:11:22 by rakpinar          #+#    #+#             */
-/*   Updated: 2023/08/22 16:11:22 by rakpinar         ###   ########.fr       */
+/*   Created: 2023/08/23 15:31:01 by rakpinar          #+#    #+#             */
+/*   Updated: 2023/08/23 15:56:25 by rakpinar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "so_long.h"
 
 void ft_error(char *str)
 {
 	ft_printf("Error %s\n", str);
-	exit(1);
+	exit(0);
 
+}
+
+int	close_frame(t_game *game)
+{
+	int		i;
+
+	i = -1;
+	while (++i < game->map->hei)
+		free(game->map->_map[i]);
+	mlx_destroy_window(game->mlx, game->game);
+	exit(0);
+	return (0);
+}
+
+int	ft_key(int keycode, t_game *game)
+{
+	if (keycode == 65307)
+		close_frame(game);
+	else if (keycode == 100 || keycode == 97 || keycode == 119 || keycode == 115)
+		edit_map(keycode, game, game->map->_map);
+	else if (keycode == 65361 || keycode == 65363)
+		edit_map(keycode, game, game->map->_map);
+	else if (keycode == 65364 || keycode == 65362)
+		edit_map(keycode, game, game->map->_map);
+	return (0);
 }
 
 
 void start_game(t_game *game)
 {
-	validate_map(game->argv[1], game);
-
-
-
+		map_size(argv[1], game);
+		game->game = mlx_new_window(game->mlx,
+				64 * game->map->wid, 64 * game->map->hei, "Down the rabbit hole");
+		read_map(game, argv[1]);
+		map_control(game, game->map->_map);
+		mlx_hook(game->game, 2, 1L << 0, ft_key, game);
+		mlx_hook(game->game, 17, 0, close_frame, game);
+		render_map(game, game->map->_map, 97);
+		mlx_loop(game->mlx);
 
 }
 
 int main(int argc, **argv)
 {
-	t_game game;
+	t_game *game;
 
 	if(argc == 2 && !ft_strncmp(&[ft_strlen(argv[1]) - 4], ".ber", 5))
 	{
@@ -45,5 +76,5 @@ int main(int argc, **argv)
 
 	else
 		ft_error("Missing Argument or Wrong File Extension");
-
+	return(0);
 }
