@@ -25,8 +25,11 @@ int	close_frame(t_game *game)
 	int		i;
 
 	i = -1;
-	while (++i < game->map->hei)
-		free(game->map->_map[i]);
+	  while (++i < win->map->hei) // Harita yüksekliği boyunca döngü
+    {
+        free(win->map->_map[i]); // Harita verisini temizle
+        free(win->map->temp_map[i]); // Geçici harita verisini temizle
+    }
 	mlx_destroy_window(game->mlx, game->game);
 	exit(0);
 	return (0);
