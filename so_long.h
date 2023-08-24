@@ -43,7 +43,8 @@ typedef struct s_game
 }	t_game;
 
 void	map_size(char *path, t_game *map);
-void	ft_error(char	*msg);
+void	ft_error(char	*str);
+void 	start_game(t_game *game);
 void	new_map(t_game *game, char **map, int x, int y);
 void	read_map(t_game *game, char *path);
 void	read_temp_map(t_game *game, char *path);
