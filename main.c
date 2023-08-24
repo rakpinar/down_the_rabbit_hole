@@ -25,7 +25,7 @@ int	close_frame(t_game *game)
 	int		i;
 
 	i = -1;
-	  while (++i < win->map->hei) // Harita yüksekliği boyunca döngü
+	  while (++i < game->map->hei) // Harita yüksekliği boyunca döngü
     {
         free(win->map->_map[i]); // Harita verisini temizle
         free(win->map->temp_map[i]); // Geçici harita verisini temizle
