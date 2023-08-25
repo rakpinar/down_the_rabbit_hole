@@ -1,102 +1,115 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rendermap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rakpinar <rakpinar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/25 14:54:24 by rakpinar          #+#    #+#             */
+/*   Updated: 2023/08/25 14:54:38 by rakpinar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "so_long.h"
 
-void	put(t_game *game, int move, int i, int j)
+void	put(t_win *win, int move, int i, int j)
 {
 	char	**map;
 
-	map = game->map->_map;
+	map = win->map->_map;
 	if (map[i][j] == 'C')
-		mlx_put_image_to_window(game->mlx,
-			game->game, game->coin, j * 64, i * 64);
+		mlx_put_image_to_window(win->mlx,
+			win->win, win->coin, j * 64, i * 64);
 	else if (map[i][j] == '1')
-		mlx_put_image_to_window(game->mlx,
-			game->game, game->wall, j * 64, i * 64);
-	else if (map[i][j] == 'P' && (move == 100 || move == 65363))
-		mlx_put_image_to_window(game->mlx,
-			game->game, game->chr->chr_r, j * 64, i * 64);
-	else if (map[i][j] == 'P' && (move == 119 || move == 65362))
-		mlx_put_image_to_window(game->mlx,
-			game->game, game->chr->chr_up, j * 64, i * 64);
-	else if (map[i][j] == 'P' && (move == 97 || move == 65361))
-		mlx_put_image_to_window(game->mlx,
-			game->game, game->chr->chr_l, j * 64, i * 64);
-	else if (map[i][j] == 'P' && (move == 115 || move == 65364))
-		mlx_put_image_to_window(game->mlx,
-			game->game, game->chr->chr_down, j * 64, i * 64);
+		mlx_put_image_to_window(win->mlx,
+			win->win, win->wall, j * 64, i * 64);
+	else if (map[i][j] == 'P' && (move == 2 || move == 124))
+		mlx_put_image_to_window(win->mlx,
+			win->win, win->chr->chr_r, j * 64, i * 64);
+	else if (map[i][j] == 'P' && (move == 13 || move == 126))
+		mlx_put_image_to_window(win->mlx,
+			win->win, win->chr->chr_up, j * 64, i * 64);
+	else if (map[i][j] == 'P' && (move == 0 || move == 123))
+		mlx_put_image_to_window(win->mlx,
+			win->win, win->chr->chr_l, j * 64, i * 64);
+	else if (map[i][j] == 'P' && (move == 1 || move == 125))
+		mlx_put_image_to_window(win->mlx,
+			win->win, win->chr->chr_down, j * 64, i * 64);
 	else if (map[i][j] == 'E')
-		mlx_put_image_to_window(game->mlx,
-			game->game, game->exit, j * 64, i * 64);
+		mlx_put_image_to_window(win->mlx,
+			win->win, win->exit, j * 64, i * 64);
 }
 
-void	render_others(t_game *game, char **map, int move)
+void	render_others(t_win *win, char **map, int move)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	while (++i < game->map->hei)
+	while (++i < win->map->hei)
 	{
 		j = -1;
 		while (map[i][++j])
-			put(game, move, i, j);
+			put(win, move, i, j);
 	}
 }
 
-void	file_to_image(t_game *game)
+void	file_to_image(t_win *win)
 {
-	game->chr->size = 64;
-	game->bg = mlx_xpm_file_to_image(game->mlx,
-			"./xpm/bg_2.xpm", &game->chr->size, &game->chr->size);
-	game->chr->chr_down = mlx_xpm_file_to_image(game->mlx,
-			"./xpm/chr_down.xpm", &game->chr->size, &game->chr->size);
-	game->chr->chr_up = mlx_xpm_file_to_image(game->mlx,
-			"./xpm/chr_up.xpm", &game->chr->size, &game->chr->size);
-	game->chr->chr_l = mlx_xpm_file_to_image(game->mlx,
-			"./xpm/chr_l.xpm", &game->chr->size, &game->chr->size);
-	game->chr->chr_r = mlx_xpm_file_to_image(game->mlx,
-			"./xpm/chr_r.xpm", &game->chr->size, &game->chr->size);
-	game->exit = mlx_xpm_file_to_image(game->mlx,
-			"./xpm/exit.xpm", &game->chr->size, &game->chr->size);
-	game->wall = mlx_xpm_file_to_image(game->mlx,
-			"./xpm/asteroid.xpm", &game->chr->size, &game->chr->size);
-	game->coin = mlx_xpm_file_to_image(game->mlx,
-			"./xpm/collect.xpm", &game->chr->size, &game->chr->size);
+	win->chr->size = 64;
+	win->bg = mlx_xpm_file_to_image(win->mlx,
+			"./textures/tile.xpm",
+			&win->chr->size, &win->chr->size);
+	win->chr->chr_down = mlx_xpm_file_to_image(win->mlx,
+			"./textures/character_face.xpm", &win->chr->size, &win->chr->size);
+	win->chr->chr_up = mlx_xpm_file_to_image(win->mlx,
+			"./textures/character_back.xpm", &win->chr->size, &win->chr->size);
+	win->chr->chr_l = mlx_xpm_file_to_image(win->mlx,
+			"./textures/character_left.xpm", &win->chr->size, &win->chr->size);
+	win->chr->chr_r = mlx_xpm_file_to_image(win->mlx,
+			"./textures/character_right.xpm",
+			&win->chr->size, &win->chr->size);
+	win->exit = mlx_xpm_file_to_image(win->mlx,
+			"./textures/hole1.xpm", &win->chr->size, &win->chr->size);
+	win->wall = mlx_xpm_file_to_image(win->mlx,
+			"./textures/tree1.xpm", &win->chr->size, &win->chr->size);
+	win->coin = mlx_xpm_file_to_image(win->mlx,
+			"./textures/carrot.xpm", &win->chr->size, &win->chr->size);
 }
 
-void	render_map(t_game *game, char	**map, int move)
+void	render_map(t_win *win, char	**map, int move)
 {
 	int	i;
 	int	j;
 
-	file_to_image(game);
+	file_to_image(win);
 	i = -1;
-	while (++i < game->map->hei)
+	while (++i < win->map->hei)
 	{
 		j = -1;
 		while (map[i][++j])
-			mlx_put_image_to_window(game->mlx,
-				game->game, game->bg, j * 64, i * 64);
+			mlx_put_image_to_window(win->mlx,
+				win->win, win->bg, j * 64, i * 64);
 	}
-	render_others(game, map, move);
-	put_score(game);
+	render_others(win, map, move);
+	put_score(win);
 }
 
-void	find_player(t_game *game, char **map)
+void	find_player(t_win *win, char **map)
 {
 	int	i;
 	int	j;
 
 	i = -1;
-	while (++i < game->map->hei)
+	while (++i < win->map->hei)
 	{
 		j = -1;
 		while (map[i][++j])
 		{
 			if (map[i][j] == 'P')
 			{
-				game->chr->x = j;
-				game->chr->y = i;
+				win->chr->x = j;
+				win->chr->y = i;
 			}
 		}
 	}

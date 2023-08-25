@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rakpinar <rakpinar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/25 15:12:05 by rakpinar          #+#    #+#             */
+/*   Updated: 2023/08/25 15:12:07 by rakpinar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
@@ -14,7 +26,7 @@
 # endif
 
 int	ft_putchar(int c);
-int	ft_str(char *str);
+int	ft_putstr(char *str);
 int	ft_printf(const char *str, ...);
 int	ft_putnbr(long double number, int base, int is_upper);
 int	ft_pointer(long double number, int base, int is_upper);

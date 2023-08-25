@@ -1,52 +1,63 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   move_player.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rakpinar <rakpinar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/25 14:54:10 by rakpinar          #+#    #+#             */
+/*   Updated: 2023/08/25 16:55:33 by rakpinar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "so_long.h"
 
-void	put_score(t_game *game)
+void	put_score(t_win *win)
 {
 	char	*score;
 
-	score = ft_itoa(game->chr->move_count);
-	mlx_string_put(game->mlx, game->game, 62, 62, 0x00FF00, score);
+	score = ft_itoa(win->chr->move_count);
+	mlx_string_put(win->mlx, win->win, 22, 30, 0xFF0100, score);
 	free(score);
 }
 
-void	new_map(t_game *game, char **map, int x, int y)
+void	new_map(t_win *win, char **map, int x, int y)
 {
 	if (map[y][x] == 'C')
-			game->map->c_count--;
-	if (map[y][x] == 'E' && game->map->c_count == 0)
+		win->map->c_count--;
+	if (map[y][x] == 'E' && win->map->c_count == 0)
 	{
-		game->chr->move_count++;
-		ft_printf("%d\n", game->chr->move_count);
-		ft_key(65307, game);
+		win->chr->move_count++;
+		ft_printf("%d\n", win->chr->move_count);
+		ft_key(53, win);
 	}
-	map[game->chr->y][game->chr->x] = '0';
+	map[win->chr->y][win->chr->x] = '0';
 	map[y][x] = 'P';
-	game->chr->x = x;
-	game->chr->y = y;
-	game->chr->move_count++;
-	ft_printf("%d\n", game->chr->move_count);
+	win->chr->x = x;
+	win->chr->y = y;
+	win->chr->move_count++;
+	ft_printf("%d\n", win->chr->move_count);
 }
 
-void	edit_map(int keycode, t_game *s_game, char **map)
+void	edit_map(int keycode, t_win *win, char **map)
 {
 	int	x;
 	int	y;
 
-	find_player(game, map);
-	x = game->chr->x;
-	y = game->chr->y;
-	if (keycode == 100 || keycode == 65363)
+	find_player(win, map);
+	x = win->chr->x;
+	y = win->chr->y;
+	if (keycode == 2 || keycode == 124)
 		x++;
-	else if (keycode == 119 || keycode == 65362)
+	else if (keycode == 13 || keycode == 126)
 		y--;
-	else if (keycode == 115 || keycode == 65364)
+	else if (keycode == 1 || keycode == 125)
 		y++;
-	else if (keycode == 97 || keycode == 65361)
+	else if (keycode == 0 || keycode == 123)
 		x--;
-	if (map[y][x] != '1' && (map[y][x] != 'E' || game->map->c_count == 0))
+	if (map[y][x] != '1' && (map[y][x] != 'E' || win->map->c_count == 0))
 	{
-		new_map(game, map, x, y);
-		render_map(game, map, keycode);
-	}		
+		new_map(win, map, x, y);
+		render_map(win, map, keycode);
+	}
 }

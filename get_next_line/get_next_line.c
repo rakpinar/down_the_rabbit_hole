@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rakpinar <rakpinar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/25 15:12:16 by rakpinar          #+#    #+#             */
+/*   Updated: 2023/08/25 15:12:20 by rakpinar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 #include "../Libft/libft.h"
 
@@ -39,3 +51,67 @@ char	*get_next_line(int fd)
 	str = ft_get_new_str(str);
 	return (line);
 }
+
+/*
+int main() {
+	int fd = open("t1.txt", O_RDONLY);
+	char* a;
+	// char *b;
+
+	while (a != NULL)
+	{
+		a = get_next_line(fd);
+		printf("%s", a);
+		free(a);
+		// free(b);
+	}
+	system("leaks a.out");
+	return 0;
+}
+*/
+
+/*
+int main()
+{
+	int a = open("a.txt", O_RDONLY, 0777);
+	char	*str = get_next_line(a);
+	int count = 1;
+
+	while (*str)
+	{
+		if ( count == 3)
+		{
+			printf("%s", str);
+			return (0);
+		}
+	count += 1;
+	str = get_next_line(a);
+	free(str);
+	}
+}
+*/
+
+/*int main()
+{
+	int a = open("a.txt", O_RDONLY, 0777);
+	char	*str = get_next_line(a);
+	char	**new;
+	int count = 1;
+	size_t	i = 0;
+
+	new = (char **)malloc(sizeof(char) * ft_strlen(str) + 1);
+	if (!new)
+		return (0);
+	while (*str)
+	{
+		new[i++] = str;
+		str = get_next_line(a);
+		if (str ==  NULL)
+		{
+			printf("%s", new[i - 1]);
+			return (0);
+		}
+	}
+	free(str);
+
+}*/

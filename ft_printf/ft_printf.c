@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: rakpinar <rakpinar@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/08/25 15:12:00 by rakpinar          #+#    #+#             */
+/*   Updated: 2023/08/25 15:12:02 by rakpinar         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int	ft_control(char c, va_list list)
@@ -8,7 +20,7 @@ int	ft_control(char c, va_list list)
 	if (c == 'c')
 		count += ft_putchar(va_arg(list, int));
 	else if (c == 's')
-		count += ft_str(va_arg(list, char *));
+		count += ft_putstr(va_arg(list, char *));
 	else if (c == 'd' || c == 'i')
 		count += ft_putnbr(va_arg(list, int), 10, 0);
 	else if (c == 'x')
